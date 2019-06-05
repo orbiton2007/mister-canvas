@@ -1,4 +1,28 @@
 
+body{
+    margin: 0;
+}
+.nav-container{
+    color: white;
+    background-color: #504e47;
+}
+ul{
+    height: 100%;
+}
+a{
+    cursor: pointer;
+    height: 100%;
+    width: 100px;
+    font-size: 1.5rem;
+}
+li{
+    height: 100%;
+}
+
+
+
+
+
 /* helpers */
 
 .flex {
@@ -25,4 +49,8 @@
     margin: 0;
     padding: 0;
     list-style-type: none;
+}
+
+.container{
+    margin: 0 auto;
 }
