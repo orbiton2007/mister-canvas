@@ -1,13 +1,24 @@
 
 body{
     margin: 0;
+    
 }
 .nav-container{
     color: white;
     background-color: #504e47;
+    height: 100px;
 }
 ul{
     height: 100%;
+}
+.contain-drop:hover .dropdown{display: block;}
+.dropdown{
+    display: none;
+    background-color: #504e47;
+    height: 150px;
+    position: fixed;
+    width: 107px;
+    top: 100px;
 }
 a{
     cursor: pointer;
@@ -19,8 +30,22 @@ li{
     height: 100%;
 }
 
+.dropdown li{
+    height: 25%;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #ffffff;
+    cursor: pointer;
+}
+.dropdown li:hover{
+    background-color: black;
+}
 
-
+#my-canvas{
+    border: black 1px solid;
+    margin-left: 50px;
+    margin-top: 43px;
+}
 
 
 /* helpers */
