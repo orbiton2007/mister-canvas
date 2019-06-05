@@ -53,9 +53,21 @@ function onMouseDown(ev) {
 function onMouseUp(ev) {
     isDraw =false;
 }
-
+var a;
+var prevEvent;
+var currEvent;
 function onMouseMove(ev) {
-    if(isDraw) draw(ev)
+    currEvent=ev
+        if(isDraw){
+            a = setInterval(function(){
+                if(prevEvent && currEvent){
+                    var movementX = Math.abs(currEvent.screenX - prevEvent.screenX);
+                }
+                console.log(movementX);
+                prevEvent = currEvent;
+            },100);
+        }else clearInterval(a);
+    if(isDraw) draw(ev);
 }
 
 
