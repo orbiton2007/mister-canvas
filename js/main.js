@@ -27,15 +27,20 @@ function draw(ev) {
         // ctx.save();
         // const offsetX = ev.offsetX
         // const offsetY = ev.offsetY
+        
         const { offsetX, offsetY } = ev
         switch (currElement) {
             case 'triangle':
                 drawTriangle(offsetX, offsetY)
+                console.log('triangle');
+                
                 break;
-            case 'rect':
-                drawRect(offsetX, offsetY)
-                break;
-            case 'arc':
+                case 'rect':
+                    console.log('got here');
+                    drawRect(offsetX, offsetY)
+                    break;
+                    case 'arc':
+                            console.log('arc');
                 drawArc(offsetX, offsetY)
                 break;
             case 'text':
@@ -62,7 +67,9 @@ function onMouseMove(ev) {
 function clearCanvas() {
     // ctx.fillStyle = 'yellow'
     // ctx.fillRect(0, 0, canvas.width, canvas.height)
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    // ctx.setTransform(1, 0, 0, 1, 0, 0);
+    console.log('clearing');
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
@@ -84,11 +91,15 @@ function drawArc(x, y) {
 }
 
 function drawRect(x, y) {
+    console.log('drawing');
+    
+    ctx.beginPath()
     ctx.rect(x, y, 150, 150)
     ctx.fillStyle = currColor;
     ctx.fillRect(x, y, 150, 150)
     ctx.stroke()
-    ctx.fill()
+    // ctx.fill()
+    // ctx.closePath()
 }
 
 
