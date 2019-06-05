@@ -3,17 +3,35 @@ let ctx
 let currColor;
 let isDraw = false;
 let currElement = 'triangle'
+let prevEvent;
+let currEvent;
+let speedMouseInterval;
+let speed = 50;
+let px = 20;
 
-function changeEl(elName) {
-    currElement = elName;
-}
-
-
-function onColorChange(color) {
-    currColor = color;
-}
 
 function init() {
+    clearInterval(speedMouseInterval);
+    document.documentElement.onmousemove = function (event) {
+        currEvent = event
+    }
+    speedMouseInterval = setInterval(function () {
+        if (prevEvent && currEvent) {
+            var movementX = Math.abs(currEvent.screenX - prevEvent.screenX);
+            var movementY = Math.abs(currEvent.screenY - prevEvent.screenY);
+            var movement = Math.sqrt(movementX * movementX + movementY * movementY);
+            if (isDraw) {
+                if (speed < Math.round(movement)) px++;
+                else {
+                    if (px < 15) return;
+                    --px;
+                }
+            }
+            document.querySelector('.speed').innerText = Math.round(movement);
+        }
+        prevEvent = currEvent;
+    }, 100);
+
     canvas = document.querySelector('#my-canvas');
     ctx = canvas.getContext('2d')
 
@@ -21,53 +39,49 @@ function init() {
     canvas.height = window.innerHeight - 200;
 }
 
+function changeEl(elName) {
+    currElement = elName;
+}
+
+function onColorChange(color) {
+    currColor = color;
+}
+
 function draw(ev) {
     // if (isDraw) {
-        // console.log(ev)
-        // ctx.save();
-        // const offsetX = ev.offsetX
-        // const offsetY = ev.offsetY
-        const { offsetX, offsetY } = ev
-        switch (currElement) {
-            case 'triangle':
-                drawTriangle(offsetX, offsetY)
-                break;
-            case 'rect':
-                drawRect(offsetX, offsetY)
-                break;
-            case 'arc':
-                drawArc(offsetX, offsetY)
-                break;
-            case 'text':
-                drawText('test', offsetX, offsetY)
-                break;
-        }
-        // ctx.restore()
+    // console.log(ev)
+    // ctx.save();
+    // const offsetX = ev.offsetX
+    // const offsetY = ev.offsetY
+    const { offsetX, offsetY } = ev
+    switch (currElement) {
+        case 'triangle':
+            drawTriangle(offsetX, offsetY)
+            break;
+        case 'rect':
+            drawRect(offsetX, offsetY)
+            break;
+        case 'arc':
+            drawArc(offsetX, offsetY)
+            break;
+        case 'text':
+            drawText('test', offsetX, offsetY)
+            break;
+    }
+    // ctx.restore()
     // }
 }
 
 function onMouseDown(ev) {
-    isDraw =true;
+    isDraw = true;
 }
 
 function onMouseUp(ev) {
-    isDraw =false;
+    isDraw = false;
 }
-var a;
-var prevEvent;
-var currEvent;
+
 function onMouseMove(ev) {
-    currEvent=ev
-        if(isDraw){
-            a = setInterval(function(){
-                if(prevEvent && currEvent){
-                    var movementX = Math.abs(currEvent.screenX - prevEvent.screenX);
-                }
-                console.log(movementX);
-                prevEvent = currEvent;
-            },100);
-        }else clearInterval(a);
-    if(isDraw) draw(ev);
+    if (isDraw) draw(ev);
 }
 
 
@@ -81,7 +95,7 @@ function clearCanvas() {
 function drawText(txt, x, y) {
     // ctx.fillStyle = currColor;
     ctx.strokeStyle = currColor
-    ctx.font = "40px Arial";
+    ctx.font = `${px}px Arial`;
     // ctx.fillText(txt, x, y);
     ctx.strokeText(txt, x, y);
 }

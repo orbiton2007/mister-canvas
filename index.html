@@ -15,7 +15,9 @@
             <h2>Mister Canvas</h2>
             <nav class="main-navbar">
                 <ul class="flex clean-list">
-                    <li><a class="flex align-center justify-center"><span><input onchange="onColorChange(this.value)" type="color"></span></a>
+                    <li><a class=" flex align-center justify-center">Speed: <span class="speed"></span></a></li>
+                    <li><a class="flex align-center justify-center"><span><input onchange="onColorChange(this.value)"
+                                    type="color"></span></a>
                     <li class="contain-drop"><a class="flex align-center justify-center">Shapes</a>
                         <ul class="dropdown column clean-list">
                             <li class="flex align-center justify-center" onclick="changeEl('text')">Text</li>
@@ -33,7 +35,8 @@
     </header>
     <main>
         <section>
-            <canvas onclick="draw(event)" onmousedown="onMouseDown()" onmousemove="onMouseMove(event)" onmouseup="onMouseUp()" id="my-canvas" width="500" height="500">
+            <canvas onclick="draw(event)" onmousedown="onMouseDown()" onmousemove="onMouseMove(event)"
+                onmouseup="onMouseUp()" id="my-canvas" width="500" height="500">
                 Update your browser to enjoy canvas!
             </canvas>
         </section>
