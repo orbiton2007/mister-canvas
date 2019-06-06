@@ -26,7 +26,7 @@ function init() {
                     if (px < 15) return;
                     px-=4;
                 }
-            }
+            }else px = 10;
             document.querySelector('.speed').innerText = Math.round(movement);
         }
         prevEvent = currEvent;
@@ -113,11 +113,11 @@ function drawArc(x, y) {
 
 function drawRect(x, y) {
     console.log('drawing');
-
     ctx.beginPath()
     ctx.rect(x, y, px, px)
-    ctx.fillStyle = currColor;
-    ctx.fillRect(x, y, px, px)
+    // ctx.fillStyle = currColor;
+    ctx.strokeStyle = currColor;
+    // ctx.fillRect(x, y, px, px)
     ctx.stroke()
     // ctx.fill()
     // ctx.closePath()
@@ -133,7 +133,7 @@ function drawTriangle(x, y) {
     ctx.closePath()
 
     ctx.lineWidth = 5;
-    // ctx.strokeStyle = 'blue';
+    ctx.strokeStyle = currColor;
     ctx.fillStyle = currColor;
 
     ctx.stroke();
