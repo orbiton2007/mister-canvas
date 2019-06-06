@@ -7,7 +7,7 @@ let prevEvent;
 let currEvent;
 let speedMouseInterval;
 let speed = 100;
-let px = 20;
+let px = 5;
 
 
 function init() {
@@ -21,10 +21,12 @@ function init() {
             var movementY = Math.abs(currEvent.screenY - prevEvent.screenY);
             var movement = Math.sqrt(movementX * movementX + movementY * movementY);
             if (isDraw) {
-                if (speed < Math.round(movement)) px+=2;
-                else {
-                    if (px < 15) return;
-                    px-=4;
+                if (speed < Math.round(movement)){
+                    if (px > 300) return;
+                    px+=6;
+                }else {
+                    if (px < 5) return;
+                    px-=15;
                 }
             }else px = 10;
             document.querySelector('.speed').innerText = Math.round(movement);
@@ -35,8 +37,8 @@ function init() {
     canvas = document.querySelector('#my-canvas');
     ctx = canvas.getContext('2d')
 
-    canvas.width = window.innerWidth - 80;
-    canvas.height = window.innerHeight - 200;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight - 50;
 }
 
 function changeEl(elName) {
@@ -64,8 +66,8 @@ function draw(ev) {
         case 'arc':
             drawArc(offsetX, offsetY)
             break;
-        case 'text':
-            drawText('test', offsetX, offsetY)
+        case currElement:
+            drawText(currElement, offsetX, offsetY)
             break;
     }
     // ctx.restore()
@@ -89,14 +91,13 @@ function clearCanvas() {
     // ctx.fillStyle = 'yellow'
     // ctx.fillRect(0, 0, canvas.width, canvas.height)
     // ctx.setTransform(1, 0, 0, 1, 0, 0);
-    console.log('clearing');
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 function drawText(txt, x, y) {
     // ctx.fillStyle = currColor;
     ctx.strokeStyle = currColor
+    ctx.lineWidth = 1;
     ctx.font = `${px}px Arial`;
     // ctx.fillText(txt, x, y);
     ctx.strokeText(txt, x, y);
@@ -106,8 +107,9 @@ function drawText(txt, x, y) {
 function drawArc(x, y) {
     ctx.beginPath();
     ctx.arc(x, y, px, 0, 2 * Math.PI);
-    ctx.fillStyle = currColor;
-    ctx.fill();
+    // ctx.fillStyle = currColor;
+    ctx.strokeStyle = currColor;
+    // ctx.fill();
     ctx.stroke();
 }
 
@@ -128,15 +130,32 @@ function drawRect(x, y) {
 function drawTriangle(x, y) {
     ctx.beginPath();
     ctx.moveTo(x, y);
-    ctx.lineTo(x + px + 50, y + 50);
-    ctx.lineTo(x + 30, y + px + 70);
+    ctx.lineTo(x + px + 20, y -px - 10);
+    ctx.lineTo(x + 30, y + px + 10);
     ctx.closePath()
 
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 1;
     ctx.strokeStyle = currColor;
-    ctx.fillStyle = currColor;
+    // ctx.fillStyle = currColor;
 
     ctx.stroke();
     // ctx.fill()
 
+}
+
+
+function onShowModal(){
+    document.querySelector('.modal').style.display = "block";
+    document.querySelector('.close').onclick = function(){
+        document.querySelector('.modal').style.display = "none";
+    }
+}
+
+function onSubmit(ev){
+    ev.preventDefault();
+    var elName = document.querySelector('.input-text').value;
+    console.log(elName);
+    
+    changeEl(elName);
+    document.querySelector('.modal').style.display = "none";
 }
