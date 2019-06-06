@@ -6,7 +6,7 @@ let currElement = 'triangle'
 let prevEvent;
 let currEvent;
 let speedMouseInterval;
-let speed = 50;
+let speed = 100;
 let px = 20;
 
 
@@ -21,10 +21,10 @@ function init() {
             var movementY = Math.abs(currEvent.screenY - prevEvent.screenY);
             var movement = Math.sqrt(movementX * movementX + movementY * movementY);
             if (isDraw) {
-                if (speed < Math.round(movement)) px++;
+                if (speed < Math.round(movement)) px+=2;
                 else {
                     if (px < 15) return;
-                    --px;
+                    px-=4;
                 }
             }
             document.querySelector('.speed').innerText = Math.round(movement);
@@ -88,7 +88,9 @@ function onMouseMove(ev) {
 function clearCanvas() {
     // ctx.fillStyle = 'yellow'
     // ctx.fillRect(0, 0, canvas.width, canvas.height)
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    // ctx.setTransform(1, 0, 0, 1, 0, 0);
+    console.log('clearing');
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
@@ -103,18 +105,22 @@ function drawText(txt, x, y) {
 
 function drawArc(x, y) {
     ctx.beginPath();
-    ctx.arc(x, y, 50, 0, 2 * Math.PI);
+    ctx.arc(x, y, px, 0, 2 * Math.PI);
     ctx.fillStyle = currColor;
     ctx.fill();
     ctx.stroke();
 }
 
 function drawRect(x, y) {
-    ctx.rect(x, y, 150, 150)
+    console.log('drawing');
+
+    ctx.beginPath()
+    ctx.rect(x, y, px, px)
     ctx.fillStyle = currColor;
-    ctx.fillRect(x, y, 150, 150)
+    ctx.fillRect(x, y, px, px)
     ctx.stroke()
-    ctx.fill()
+    // ctx.fill()
+    // ctx.closePath()
 }
 
 
@@ -122,15 +128,15 @@ function drawRect(x, y) {
 function drawTriangle(x, y) {
     ctx.beginPath();
     ctx.moveTo(x, y);
-    ctx.lineTo(x + 300, y + 150);
-    ctx.lineTo(x + 100, y + 100);
+    ctx.lineTo(x + px + 50, y + 50);
+    ctx.lineTo(x + 30, y + px + 70);
     ctx.closePath()
 
     ctx.lineWidth = 5;
-    ctx.strokeStyle = 'blue';
+    // ctx.strokeStyle = 'blue';
     ctx.fillStyle = currColor;
 
     ctx.stroke();
-    ctx.fill()
+    // ctx.fill()
 
 }
