@@ -7,7 +7,7 @@ let prevEvent;
 let currEvent;
 let speedMouseInterval;
 let speed = 100;
-let px = 5;
+let px = 10;
 
 
 function init() {
@@ -106,7 +106,7 @@ function drawText(txt, x, y) {
 
 function drawArc(x, y) {
     ctx.beginPath();
-    ctx.arc(x, y, px, 0, 2 * Math.PI);
+    ctx.arc(x, y, px+10, 0, 2 * Math.PI);
     // ctx.fillStyle = currColor;
     ctx.strokeStyle = currColor;
     // ctx.fill();
